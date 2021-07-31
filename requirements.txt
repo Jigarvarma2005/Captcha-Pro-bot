@@ -1,0 +1,6 @@
+requests
+pyrogram
+asyncio
+dnspython
+pymongo
+tgcrypto
