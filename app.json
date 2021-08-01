@@ -34,7 +34,7 @@
             "required": false
         },
         "API_TOKEN": {
-            "description": "Needs Captcha API Token to get Captcha. Get this from https://t.me/JV_Community !!",
+            "description": "Needs Captcha API Token to get Captcha. Get this from https://t.me/JV_Community !!"
         }
     },
     "buildpacks": [
