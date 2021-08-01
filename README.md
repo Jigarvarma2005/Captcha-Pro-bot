@@ -1,4 +1,4 @@
-# Emoji-Captcha-Bot
+# Captcha-Pro-Bot
 A Telegram Bot which will ask new Group Members to verify them by solving an emoji or number captcha.
 
 ### Demo Group:
