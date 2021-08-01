@@ -13,7 +13,7 @@
     "website": "https://telegram.dog/JigarVarma2005",
     "success_url": "https://t.me/JV_Community",
     "env": {
-        "API_ID": {
+        "APP_ID": {
             "description": "Get this value from my.telegram.org"
         },
         "API_HASH": {
