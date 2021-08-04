@@ -1,4 +1,4 @@
-# (c) @JigarVarma2005
+# (c) th0m45s5helby | JigarVarma2005
 
 def MakeCaptchaMarkup(markup, _number, sign):
     __markup = markup
