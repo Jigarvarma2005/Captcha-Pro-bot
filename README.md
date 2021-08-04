@@ -40,5 +40,7 @@ python3 bot.py
 <p align="left">
 <a href="https://instagram.com/Jigarvarma2005"><img src="https://img.shields.io/badge/Instagram-Follow%20on%20Instagram-important.svg?logo=instagram"></a>
 </p>
+
 #### Thanks to [Thomas Shelby](https://github.com/th0m45s5helby) for Helping with Logics.
+
 #### Inspired from [@PyrogramBot](https://t.me/PyrogramBot) Captcha and [Emoji Captcha](https://github.com/AbirHasan2005/Emoji-Captcha-Bot)
