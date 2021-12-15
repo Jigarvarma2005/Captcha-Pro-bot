@@ -24,9 +24,9 @@ Using [api.jigarvarma.tk/img_captcha](https://api.jigarvarma.tk/img_captcha) and
 ### Host Locally:
 ```shell
 git clone https://github.com/Jigarvarma2005/Captcha-Pro-bot
-cd Emoji-Captcha-Bot
+cd Captcha-Pro-bot
 pip3 install -r requirements.txt
-# Setup Configurations in configs.py file!
+# Setup Configurations in config.py file!
 python3 bot.py
 ```
 
