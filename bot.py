@@ -147,7 +147,7 @@ async def cb_handler(bot, query):
             if c == "N":
                 print("proccesing number captcha")
                 await query.answer("Creating captcha for you")
-                data_ = get(f"https://api.jigarvarma.tk/num_captcha?token={Config.API_TOKEN}").text
+                data_ = get(f"https://api.jigarvarma.tech/num_captcha?token={Config.API_TOKEN}").text
                 data_ = json.loads(data_)
                 _numbers = data_["answer"]["answer"]
                 list_ = ["0","1","2","3","5","6","7","8","9"]
@@ -167,7 +167,7 @@ async def cb_handler(bot, query):
             elif c == "E":
                 print("proccesing img captcha")
                 await query.answer("Creating captcha for you")
-                data_ = get(f"https://api.jigarvarma.tk/img_captcha?token={Config.API_TOKEN}").text
+                data_ = get(f"https://api.jigarvarma.tech/img_captcha?token={Config.API_TOKEN}").text
                 data_ = json.loads(data_)
                 _numbers = data_["answer"]["answer"]
                 list_ = data_["answer"]["list"]
