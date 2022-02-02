@@ -21,7 +21,7 @@ def emoji_() -> dict:
     return maker
 
 def number_() -> dict:
-    filename = "/cache/" + uuid.uuid4().hex + '.png'
+    filename = "./cache/" + uuid.uuid4().hex + '.png'
     image = ImageCaptcha(width = 280, height = 140, font_sizes=[80,83])
     list_ = ["0","1","2","3","5","6","7","8","9"]
     captcha_number = set()
