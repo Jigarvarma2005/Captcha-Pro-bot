@@ -1,30 +1,28 @@
 # (c) @JigarVarma2005
 # Edit codes at your own risk
 from config import Config
-from requests import get
 from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, ChatPermissions, CallbackQuery
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ChatPermissions
 import random
 import asyncio
-import json
 from helper.db import manage_db
 from pyrogram.errors import UserNotParticipant
 from helper.markup import MakeCaptchaMarkup
+from helper.captcha_maker import number_, emoji_
+
+
 # Prepare bot
 app = Client(Config.SESSION_NAME, api_id=Config.APP_ID, api_hash=Config.API_HASH, bot_token=Config.BOT_TOKEN)
 # Local database for saving user info
 LocalDB = {}
 ch_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text="Updates Channel", url="https://t.me/Universal_Projects"),
                                     InlineKeyboardButton(text="Support Group", url="https://t.me/JV_Community")]])
-BOT_UNAME = Config.BOT_USERNAME
+
 
 @app.on_chat_member_updated()
 async def check_chat_captcha(client, message):
     user_id = message.from_user.id
     chat_id = message.chat.id
-    if Config.API_TOKEN is None:
-        await client.send_message(chat_id, "Please get the apy key from @JV_Community")
-        return
     chat = manage_db().chat_in_db(chat_id)
     if not chat:
         return
@@ -74,11 +72,8 @@ async def check_chat_captcha(client, message):
                               text=f"{message.from_user.mention} to chat here please verify that your a human",
                               reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Verify Now", callback_data=f"verify_{chat_id}_{user_id}")]]))
         
-@app.on_message(filters.command(["captcha",f"captcha@{BOT_UNAME}"]) & ~filters.private)
+@app.on_message(filters.command(["captcha"]) & ~filters.private)
 async def add_chat(bot, message):
-    if Config.API_TOKEN is None:
-        await message.reply_text("Please get the apy key from @JV_Community")
-        return
     chat_id = message.chat.id
     user_id = message.from_user.id
     user = await bot.get_chat_member(chat_id, user_id)
@@ -91,21 +86,18 @@ async def add_chat(bot, message):
                                     reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Number", callback_data=f"new_{chat_id}_{user_id}_N"),
                                                                         InlineKeyboardButton(text="Emoji", callback_data=f"new_{chat_id}_{user_id}_E")]]))
         
-@app.on_message(filters.command(["help",f"help@{BOT_UNAME}"]))
+@app.on_message(filters.command(["help"]))
 async def start_chat(bot, message):
     await message.reply_text(text="/captcha - turn on captcha : There are two types of captcha\n/remove - turn off captcha\n\nfor more help ask in my support group",
                              reply_markup=ch_markup)
     
-@app.on_message(filters.command(["start",f"start@{BOT_UNAME}"]))
+@app.on_message(filters.command(["start"]))
 async def help_chat(bot, message):
     await message.reply_text(text="I can help you to protect your group from bots using captcha.\n\nCheck /help to know more.",
                              reply_markup=ch_markup)
     
-@app.on_message(filters.command(["remove",f"remove@{BOT_UNAME}"]) & ~filters.private)
+@app.on_message(filters.command(["remove"]) & ~filters.private)
 async def del_chat(bot, message):
-    if Config.API_TOKEN is None:
-        await message.reply_text("Please get the apy key from @JV_Community")
-        return
     chat_id = message.chat.id
     user = await bot.get_chat_member(message.chat.id, message.from_user.id)
     if user.status == "creator" or user.status == "administrator" or user.user.id in Config.SUDO_USERS:
@@ -147,9 +139,8 @@ async def cb_handler(bot, query):
             if c == "N":
                 print("proccesing number captcha")
                 await query.answer("Creating captcha for you")
-                data_ = get(f"https://api.jigarvarma.tech/num_captcha?token={Config.API_TOKEN}").text
-                data_ = json.loads(data_)
-                _numbers = data_["answer"]["answer"]
+                data_ = number_()
+                _numbers = data_["answer"]
                 list_ = ["0","1","2","3","5","6","7","8","9"]
                 random.shuffle(list_)
                 tot = 2
@@ -167,10 +158,9 @@ async def cb_handler(bot, query):
             elif c == "E":
                 print("proccesing img captcha")
                 await query.answer("Creating captcha for you")
-                data_ = get(f"https://api.jigarvarma.tech/img_captcha?token={Config.API_TOKEN}").text
-                data_ = json.loads(data_)
-                _numbers = data_["answer"]["answer"]
-                list_ = data_["answer"]["list"]
+                data_ = emoji_()
+                _numbers = data_["answer"]
+                list_ = data_["list"]
                 count = 0
                 tot = 3
                 for i in range(5):
@@ -189,7 +179,7 @@ async def cb_handler(bot, query):
             if c == "E":
                 typ_ = "emoji"
             msg = await bot.send_photo(chat_id=chat_id,
-                            photo=data_["answer"]["captcha"],
+                            photo=data_["captcha"],
                             caption=f"{query.from_user.mention} Please click on each {typ_} button that is showen in image, {tot} mistacks are allowed.",
                             reply_markup=InlineKeyboardMarkup(markup))
             LocalDB[query.from_user.id]['msg_id'] = msg.message_id

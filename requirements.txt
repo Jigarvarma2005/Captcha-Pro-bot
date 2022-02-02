@@ -1,6 +1,8 @@
-requests
+pillow
+captcha
 pyrogram
 asyncio
 dnspython
 pymongo
+git+https://github.com/Jigarvarma2005/EmojiCaptcha.git
 tgcrypto

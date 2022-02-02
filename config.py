@@ -8,7 +8,6 @@ class Config(object):
     API_HASH = os.environ.get("API_HASH", "")
     # Get it from @botfather
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
-    BOT_USERNAME = os.environ.get("BOT_USERNAME", "JVCaptchaBot")
     # Leave this defualt
     SESSION_NAME = os.environ.get("SESSION_NAME", "JV_CaptchaBot")
     # get it from https://cloud.mongodb.com 

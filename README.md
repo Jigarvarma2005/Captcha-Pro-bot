@@ -14,10 +14,6 @@ A Telegram Bot which will ask new Group Members to verify them by solving an emo
 - option to turn off
 
 
-## About API:
-Using [api.jigarvarma.tk/img_captcha](https://api.jigarvarma.tk/img_captcha) and [api.jigarvarma.tk/num_captcha](https://api.jigarvarma.tk/num_captcha) for generating captcha. To request to API you will need Access Token `API_TOKEN`. For Access Token ask at [JV Community](https://t.me/JV_Community).
-
-
 ### Heroku Deploy:
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Jigarvarma2005/Captcha-Pro-bot)
 
