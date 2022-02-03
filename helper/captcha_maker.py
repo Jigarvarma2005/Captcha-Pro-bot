@@ -17,6 +17,7 @@ def emoji_() -> dict:
     n_list = new_list[:9]
     for i in maker["answer"]:
         n_list.append(i)
+    random.shuffle(n_list, lambda: r)
     maker.update({"list": n_list})
     return maker
 
