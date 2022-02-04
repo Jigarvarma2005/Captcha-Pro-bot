@@ -25,7 +25,7 @@ def number_() -> dict:
     final_number = str(random.randint(0000, 9999))
     image.write("   " + final_number, str(filename))
     try:
-        data = {"answer":list(captcha_number),"captcha": filename}
+        data = {"answer":list(final_number),"captcha": filename}
     except Exception as t_e:
         print(t_e)
         data = {"is_error": True, "error":t_e}
