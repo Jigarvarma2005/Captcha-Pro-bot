@@ -14,7 +14,7 @@ def emoji_() -> dict:
     for i in range(20):
         if emojis_list[i] not in new_list:
             new_list.append(emojis_list[i])
-    n_list = new_list[:16]
+    n_list = new_list[:15]
     random.shuffle(n_list, lambda: r)
     maker.update({"list": n_list})
     return maker
