@@ -180,7 +180,7 @@ async def cb_handler(bot, query):
                 typ_ = "emoji"
             msg = await bot.send_photo(chat_id=chat_id,
                             photo=data_["captcha"],
-                            caption=f"{query.from_user.mention} Please click on each {typ_} button that is showen in image, {tot} mistacks are allowed.",
+                            caption=f"{query.from_user.mention} Please click on each {typ_} button that is showen in image, {tot} mistakes are allowed.",
                             reply_markup=InlineKeyboardMarkup(markup))
             LocalDB[query.from_user.id]['msg_id'] = msg.message_id
             await query.message.delete()
