@@ -20,10 +20,10 @@ def emoji_() -> dict:
     return maker
 
 def number_() -> dict:
-    filename = "./cache/" + uuid.uuid4().hex + '.png'
+    filename = f"./cache/{uuid.uuid4().hex}.png"
     image = ImageCaptcha(width = 280, height = 140, font_sizes=[80,83])
     final_number = str(random.randint(0000, 9999))
-    image.write("   " + final_number, str(filename))
+    image.write(f"   {final_number}", str(filename))
     try:
         data = {"answer":list(final_number),"captcha": filename}
     except Exception as t_e:
