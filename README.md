@@ -13,17 +13,33 @@ A Telegram Bot which will ask new Group Members to verify them by solving an emo
 - option to turn on
 - option to turn off
 
-
-### Heroku Deploy:
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Jigarvarma2005/Captcha-Pro-bot)
-
-### Host Locally:
+### Host Locally/VPS:
 ```shell
+# screen helps to run 24*7
+# install screen if not installed
+sudo apt install screen
+pip install virtualenv
+
 git clone https://github.com/Jigarvarma2005/Captcha-Pro-bot
 cd Captcha-Pro-bot
-pip3 install -r requirements.txt
+
+screen -r captchabot
+virtualenv -p /usr/bin/python3 venv
+. ./venv/bin/activate
+
+pip install -r requirements.txt
+
 # Setup Configurations in config.py file!
+# run the bot
 python3 bot.py
+
+(Use python3/pip3 if above commands get errors)
+
+To stop/remove screen and Stop bot 
+screen -r captchabot
+Then type ctrl+a and then k.
+It will ask y/n. Press y.
+
 ```
 
 ### Follow on:
