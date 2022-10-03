@@ -2,6 +2,7 @@
 
 import os
 
+
 class Config(object):
     # get it from my.telegram.org
     APP_ID = os.environ.get("APP_ID", 123456)
