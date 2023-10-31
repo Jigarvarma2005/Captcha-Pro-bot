@@ -8,8 +8,7 @@ class manage_db():
         self.chats = self.db["Chats"]
         
     def chat_in_db(self, chat_id):
-        chat = self.chats.find_one({"chat_id":chat_id})
-        return chat
+        return self.chats.find_one({"chat_id":chat_id})
         
     def add_chat(self, chat_id, captcha):
         if self.chat_in_db(chat_id):

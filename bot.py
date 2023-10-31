@@ -31,24 +31,21 @@ async def check_chat_captcha(client, message):
         return
     try:
         user_s = await client.get_chat_member(chat_id, user_id)
-        if (user_s.is_member is False) and (LocalDB.get(user_id, None) is not None):
-            try:
-                await client.delete_messages(
-                    chat_id=chat_id,
-                    message_ids=LocalDB[user_id]["msg_id"]
-                )
-            except:
-                pass
-            return
-        elif (user_s.is_member is False):
+        if user_s.is_member is False:
+            if LocalDB.get(user_id, None) is not None:
+                try:
+                    await client.delete_messages(
+                        chat_id=chat_id,
+                        message_ids=LocalDB[user_id]["msg_id"]
+                    )
+                except:
+                    pass
             return
     except UserNotParticipant:
         return
     chat_member = await client.get_chat_member(chat_id, user_id)
     if chat_member.restricted_by:
-        if chat_member.restricted_by.id == (await client.get_me()).id:
-            pass
-        else:
+        if chat_member.restricted_by.id != (await client.get_me()).id:
             return
     try:
         if LocalDB.get(user_id, None) is not None:
@@ -82,13 +79,26 @@ async def add_chat(bot, message):
     user_id = message.from_user.id
     user = await bot.get_chat_member(chat_id, user_id)
     if user.status == "creator" or user.status == "administrator" or user.user.id in Config.SUDO_USERS:
-        chat = manage_db().chat_in_db(chat_id)
-        if chat:
+        if chat := manage_db().chat_in_db(chat_id):
             await message.reply_text("Captcha already tunned on here, use /remove to turn off")
         else:
-            await message.reply_text(text=f"Please select the captcha type",
-                                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Number", callback_data=f"new_{chat_id}_{user_id}_N"),
-                                                                        InlineKeyboardButton(text="Emoji", callback_data=f"new_{chat_id}_{user_id}_E")]]))
+            await message.reply_text(
+                text="Please select the captcha type",
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="Number",
+                                callback_data=f"new_{chat_id}_{user_id}_N",
+                            ),
+                            InlineKeyboardButton(
+                                text="Emoji",
+                                callback_data=f"new_{chat_id}_{user_id}_E",
+                            ),
+                        ]
+                    ]
+                ),
+            )
         
 @app.on_message(filters.command(["help"]))
 async def start_chat(bot, message):
@@ -107,8 +117,7 @@ async def del_chat(bot, message):
     chat_id = message.chat.id
     user = await bot.get_chat_member(message.chat.id, message.from_user.id)
     if user.status == "creator" or user.status == "administrator" or user.user.id in Config.SUDO_USERS:
-        j = manage_db().delete_chat(chat_id)
-        if j:
+        if j := manage_db().delete_chat(chat_id):
             await message.reply_text("Captcha turned off on this chat")
         
 
